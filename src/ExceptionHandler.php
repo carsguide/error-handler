@@ -112,6 +112,9 @@ class ExceptionHandler extends BaseExceptionHandler
                 break;
 
             case 500:
+            case 502:
+            case 503:
+            case 504:
                 if (extension_loaded('newrelic')) {
                     newrelic_notice_error($throwable_exception);
                 }
