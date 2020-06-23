@@ -111,10 +111,7 @@ class ExceptionHandler extends BaseExceptionHandler
                 $msg = 'Sorry, the page you are looking for could not be found.';
                 break;
 
-            case 500:
-            case 502:
-            case 503:
-            case 504:
+            case ($e >= 500 && $e <= 599):
                 if (extension_loaded('newrelic')) {
                     newrelic_notice_error($throwable_exception);
                 }
