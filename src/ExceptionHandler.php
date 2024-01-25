@@ -14,6 +14,7 @@ use Illuminate\Foundation\Exceptions\Handler as BaseExceptionHandler;
 use Symfony\Component\ErrorHandler\Exception\FlattenException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Throwable;
+use WeakMap;
 
 class ExceptionHandler extends BaseExceptionHandler
 {
@@ -47,6 +48,8 @@ class ExceptionHandler extends BaseExceptionHandler
     public function __construct(Container $container)
     {
         $this->container = $container;
+
+        $this->reportedExceptionMap = new WeakMap;
 
         $this->register();
     }
@@ -111,7 +114,7 @@ class ExceptionHandler extends BaseExceptionHandler
             return new Response([
                 'errorMsg' => $e->getMessage(),
                 'stackTrace' => $e->getTrace()
-            ],$status_code);
+            ], $status_code);
         }
 
         switch ($status_code) {
