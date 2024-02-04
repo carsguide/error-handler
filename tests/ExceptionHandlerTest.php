@@ -4,6 +4,7 @@ namespace Carsguide\Tests;
 
 use Carsguide\Exceptions\ExceptionHandler;
 use Carsguide\Exceptions\FailedJobException;
+use Carsguide\Tests\TestCase;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -13,12 +14,15 @@ use Mockery;
 
 class ExceptionHandlerTest extends TestCase
 {
+    public $handler;
+
     public function setUp(): void
     {
+        parent::setUp();
+
         $container = Mockery::mock(Container::class);
         $this->handler = new ExceptionHandler($container);
 
-        parent::setUp();
     }
 
     /**
